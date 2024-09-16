@@ -1,21 +1,34 @@
 import Appoinments from "../../components/Appoinments";
 import {useParams} from "react-router-dom";
-import {useEffect, useState} from "react";
-import axios from "axios";
+import {useEffect, useContext} from "react";
+import {UserContext} from "../../context/user";
+
+import styles from "./Profile.module.css";
 
 function Profile() {
   const {id} = useParams();
-  const [appointments, setAppointments] = useState([]);
+  const {appointments, getAppointments, isLogged, logout} =
+    useContext(UserContext);
 
   useEffect(() => {
-    axios.get(`http://localhost:3000/users/${id}`).then((response) => {
-      setAppointments(response.data.appointments);
-    });
+    async function fetchData() {
+      await getAppointments(id);
+    }
+    fetchData();
   }, [id]);
 
   return (
     <div>
-      <Appoinments appointments={appointments} />
+      {isLogged ? (
+        appointments.length === 0 ? (
+          <h1>No appointments</h1>
+        ) : (
+          <Appoinments appointments={appointments} />
+        )
+      ) : (
+        <h1 className={styles.text}>Please login </h1>
+      )}
+      {isLogged && <button onClick={logout}>Logout</button>}
     </div>
   );
 }

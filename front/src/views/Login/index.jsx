@@ -1,8 +1,7 @@
-import {useState} from "react";
-import axios from "axios";
+import {useContext, useState, useEffect} from "react";
 import {useNavigate} from "react-router-dom";
-
 import styles from "../Register/Register.module.css";
+import {UserContext} from "../../context/user";
 
 const validateLogin = (input) => {
   let errors = {};
@@ -12,6 +11,7 @@ const validateLogin = (input) => {
   return errors;
 };
 function Login() {
+  const {login, user} = useContext(UserContext);
   const navigate = useNavigate();
 
   const [input, setInput] = useState({
@@ -44,20 +44,15 @@ function Login() {
     if (Object.keys(errors).length) {
       alert("Please fill the form correctly");
     } else {
-      try {
-        const {data} = await axios.post(
-          "http://localhost:3000/users/login",
-          input
-        );
-
-        alert("login success");
-        navigate(`/profile/${data.user.id}`);
-      } catch (error) {
-        alert(error.response.data.message);
-        navigate("");
-      }
+      await login(input);
     }
   };
+
+  useEffect(() => {
+    if (user?.id) {
+      navigate(`/profile/${user.id}`);
+    }
+  }, [user, navigate]);
 
   return (
     <form onSubmit={handleSubmit} className={styles.container}>

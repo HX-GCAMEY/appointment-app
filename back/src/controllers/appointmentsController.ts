@@ -16,13 +16,14 @@ export const getAllAppointments = async (req: Request, res: Response) => {
 export const getAppointmentById = async (req: Request, res: Response) => {
   try {
     const {appointmentId} = req.params;
+
     const appointment: Appointment | null = await getAppointmentByIdService(
       parseInt(appointmentId)
     );
 
     res.status(200).json(appointment);
   } catch (error) {
-    res.status(400).json({error: (error as any).message});
+    res.status(400).json({error: error.message});
   }
 };
 
