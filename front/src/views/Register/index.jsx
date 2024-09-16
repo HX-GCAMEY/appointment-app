@@ -1,6 +1,6 @@
-import {useState} from "react";
-import axios from "axios";
+import {useState, useContext} from "react";
 import {useNavigate} from "react-router-dom";
+import {UserContext} from "../../context/user";
 
 import styles from "./Register.module.css";
 
@@ -17,6 +17,7 @@ const validateRegister = (input) => {
 };
 
 function Register() {
+  const {register} = useContext(UserContext);
   const navigate = useNavigate();
   const [input, setInput] = useState({
     email: "",
@@ -56,13 +57,9 @@ function Register() {
     if (Object.keys(errors).length) {
       alert("Please fill the form correctly");
     } else {
-      try {
-        await axios.post("http://localhost:3000/users/register", input);
-        alert("Register success");
-        navigate("/login");
-      } catch (error) {
-        alert(error.response.data.message);
-      }
+      await register(input);
+      alert("User registered successfully");
+      navigate("/login");
     }
   };
 

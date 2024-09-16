@@ -13,10 +13,6 @@ export const getAppointmentByIdService = async (
 ): Promise<Appointment | null> => {
   const appointment = await appointmentModel.findOneBy({id});
 
-  if (!appointment) {
-    throw new Error("Appointment not found");
-  }
-
   return appointment;
 };
 

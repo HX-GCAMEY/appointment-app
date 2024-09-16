@@ -13,9 +13,15 @@ export const getAllUsers = async (req: Request, res: Response) => {
 };
 
 export const getUserById = async (req: Request, res: Response) => {
-  const {id} = req.params;
-  const user = await getUserByIdService(parseInt(id));
-  res.status(200).json(user);
+  try {
+    const {id} = req.params;
+    const user = await getUserByIdService(parseInt(id));
+    res.status(200).json(user);
+  } catch (error) {
+    res.status(400).json({
+      message: error.message,
+    });
+  }
 };
 
 export const register = async (req: Request, res: Response) => {
@@ -41,6 +47,7 @@ export const register = async (req: Request, res: Response) => {
 export const login = async (req: Request, res: Response) => {
   try {
     const {email, password} = req.body;
+
     const user = await loginService({email, password});
     res.status(200).json({
       login: true,
