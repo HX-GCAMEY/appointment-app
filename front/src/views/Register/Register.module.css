@@ -1,0 +1,33 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  padding: 2em;
+  margin: 2em;
+  background-color: #0f0f0f;
+  color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  align-items: center;
+}
+
+input {
+  padding: 0.5em;
+  margin: 0.5em;
+  border-radius: 5px;
+  border: none;
+}
+
+button {
+  padding: 0.5em 1em;
+  margin: 0.5em;
+  border-radius: 5px;
+  border: none;
+  background-color: #5e2e2e;
+  color: #fff;
+  cursor: pointer;
+}
+
+span {
+  color: #e20d0d;
+  cursor: pointer;
+}

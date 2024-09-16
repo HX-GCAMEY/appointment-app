@@ -11,6 +11,7 @@
     "sourceRoot": "/",
     "strictNullChecks": true,
     "experimentalDecorators": true,
+    "useUnknownInCatchVariables": false,
     "emitDecoratorMetadata": true,
     "moduleResolution": "NodeNext",
     "strictPropertyInitialization": false
