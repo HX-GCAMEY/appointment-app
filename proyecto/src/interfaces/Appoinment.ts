@@ -1,9 +1,12 @@
-import {User} from "./User";
+export enum Status {
+  ACTIVE = "active",
+  CANCELLED = "cancelled",
+}
 
-export interface Appoinment {
+export interface Appointment {
   id: number;
   date: string;
   time: string;
-  status?: string;
-  user?: User;
+  status: Status;
+  user: number;
 }

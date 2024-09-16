@@ -1,5 +1,4 @@
 import {Appoinment} from "./Appoinment";
-import {Credentials} from "./Credentials";
 
 export interface User {
   id?: number;
@@ -8,6 +7,6 @@ export interface User {
   address: string;
   phone: string;
   profile_pic: string;
-  credentials: Credentials;
+  credentials: number;
   appointments?: Appoinment[];
 }
