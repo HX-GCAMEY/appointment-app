@@ -28,9 +28,13 @@ export const schedule = async (req: Request, res: Response) => {
 };
 
 export const cancel = async (req: Request, res: Response) => {
-  const {appointmentId} = req.params;
-  const appointment: Appointment | null = await cancelAppointmentService(
-    Number(appointmentId)
-  );
-  res.status(200).json(appointment);
+  try {
+    const {appointmentId} = req.params;
+    const appointment: Appointment | null = await cancelAppointmentService(
+      Number(appointmentId)
+    );
+    res.status(200).json(appointment);
+  } catch (error) {
+    res.status(400).json({error: (error as any).message});
+  }
 };

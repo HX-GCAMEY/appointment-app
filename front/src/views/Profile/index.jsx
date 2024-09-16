@@ -1,9 +1,15 @@
 import Appoinments from "../../components/Appoinments";
-import {myAppointments} from "../../assets/data";
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import axios from "axios";
 
 function Profile() {
-  const [appointments, setAppointments] = useState(myAppointments);
+  const [appointments, setAppointments] = useState([]);
+
+  useEffect(() => {
+    axios.get("http://localhost:3000/appointments").then((response) => {
+      setAppointments(response.data);
+    });
+  }, []);
 
   return (
     <div>
