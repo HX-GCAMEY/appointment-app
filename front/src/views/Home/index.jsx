@@ -1,6 +1,8 @@
 import Navbar from "../../components/Navbar";
 import Services from "../../components/Services";
+import Login from "../Login";
 import Profile from "../Profile";
+import Register from "../Register";
 
 function Home() {
   return (
@@ -8,6 +10,8 @@ function Home() {
       <Navbar />
       <Services />
       <Profile />
+      <Register />
+      <Login />
     </div>
   );
 }

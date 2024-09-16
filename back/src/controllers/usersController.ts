@@ -19,24 +19,37 @@ export const getUserById = async (req: Request, res: Response) => {
 };
 
 export const register = async (req: Request, res: Response) => {
-  const {name, email, password, address, phone, profile_pic} = req.body;
+  try {
+    const {name, email, password, address, phone, profile_pic} = req.body;
 
-  const newUser = await createUserService({
-    name,
-    email,
-    address,
-    phone,
-    profile_pic,
-    password,
-  });
-  res.status(200).json(newUser);
+    const newUser = await createUserService({
+      name,
+      email,
+      address,
+      phone,
+      profile_pic,
+      password,
+    });
+    res.status(200).json(newUser);
+  } catch (error) {
+    res.status(400).json({
+      message: error.message,
+    });
+  }
 };
 
 export const login = async (req: Request, res: Response) => {
-  const {email, password} = req.body;
-  const user = await loginService({email, password});
-  res.status(200).json({
-    login: true,
-    user,
-  });
+  try {
+    const {email, password} = req.body;
+    const user = await loginService({email, password});
+    res.status(200).json({
+      login: true,
+      user,
+    });
+  } catch (error) {
+    res.status(401).json({
+      login: false,
+      message: error.message,
+    });
+  }
 };
