@@ -1,33 +1,29 @@
-import {Credentials} from "../interfaces/Credentials";
-
-export const credentialsArray: Credentials[] = [
-  {
-    id: 1,
-    email: "barto@gmail.com",
-    password: "12345",
-  },
-];
+import {credentialModel} from "../config/dataSource";
+import {CreateCredentialsDto} from "../dtos/CreateCredentials";
+import {ValidateCredentialsDto} from "../dtos/ValidateCredentialsDto";
+import Credential from "../entities/Credential";
 
 export const createCredentiasService = async (
-  credentials: Credentials
-): Promise<number> => {
-  const newCredentials = {
-    id: credentialsArray.length + 1,
-    ...credentials,
-  };
+  credentials: CreateCredentialsDto
+): Promise<Credential> => {
+  const newCredentials: Credential = await credentialModel.create(credentials);
+  await credentialModel.save(newCredentials);
 
-  credentialsArray.push(newCredentials);
-
-  return await newCredentials.id;
+  return newCredentials;
 };
 
 export const credentialsValidationService = async (
-  credentials: Credentials
-): Promise<number | undefined> => {
+  credentials: ValidateCredentialsDto
+): Promise<Credential | null> => {
   const {email, password} = credentials;
-  const credential = credentialsArray.find(
-    (credential) =>
-      credential.email === email && credential.password === password
-  );
-  return await credential?.id;
+  const credential: Credential | null = await credentialModel.findOneBy({
+    email,
+  });
+  if (!credential) {
+    throw new Error("Invalid credentials");
+  }
+  if (credential?.password !== password) {
+    throw new Error("Invalid credentials");
+  }
+  return credential;
 };

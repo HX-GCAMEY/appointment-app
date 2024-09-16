@@ -10,8 +10,10 @@
     "esModuleInterop": true,
     "sourceRoot": "/",
     "strictNullChecks": true,
-
-    "moduleResolution": "NodeNext"
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "moduleResolution": "NodeNext",
+    "strictPropertyInitialization": false
   },
   "include": ["src/**/*.ts"],
   "exclude": ["node_modules"]

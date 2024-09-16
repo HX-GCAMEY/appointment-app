@@ -1,18 +1,21 @@
 import {Request, Response} from "express";
-import {Appointment} from "../interfaces/Appointment";
+import Appointment from "../entities/Appointment";
+
 import {
   cancelAppointmentService,
+  createAppointmentService,
+  getAllAppointmentsService,
   getAppointmentByIdService,
 } from "../services/appointmentsService";
 
 export const getAllAppointments = async (req: Request, res: Response) => {
-  const appointments: Appointment[] = [];
+  const appointments: Appointment[] = await getAllAppointmentsService();
   res.status(200).json(appointments);
 };
 
 export const getAppointmentById = async (req: Request, res: Response) => {
   const {appointmentId} = req.params;
-  const appointment: Appointment | undefined = await getAppointmentByIdService(
+  const appointment: Appointment | null = await getAppointmentByIdService(
     parseInt(appointmentId)
   );
 
@@ -20,14 +23,13 @@ export const getAppointmentById = async (req: Request, res: Response) => {
 };
 
 export const schedule = async (req: Request, res: Response) => {
-  const {date, time, user} = req.body;
-  const newAppointment = {date, time, user};
+  const newAppointment = createAppointmentService(req.body);
   res.status(200).json(newAppointment);
 };
 
 export const cancel = async (req: Request, res: Response) => {
   const {appointmentId} = req.params;
-  const appointment: Appointment | undefined = await cancelAppointmentService(
+  const appointment: Appointment | null = await cancelAppointmentService(
     Number(appointmentId)
   );
   res.status(200).json(appointment);
