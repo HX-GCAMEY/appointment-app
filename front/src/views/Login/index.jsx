@@ -1,5 +1,6 @@
 import {useState} from "react";
 import axios from "axios";
+import {useNavigate} from "react-router-dom";
 
 import styles from "../Register/Register.module.css";
 
@@ -11,6 +12,8 @@ const validateLogin = (input) => {
   return errors;
 };
 function Login() {
+  const navigate = useNavigate();
+
   const [input, setInput] = useState({
     email: "",
     password: "",
@@ -42,10 +45,16 @@ function Login() {
       alert("Please fill the form correctly");
     } else {
       try {
-        await axios.post("http://localhost:3000/users/login", input);
+        const {data} = await axios.post(
+          "http://localhost:3000/users/login",
+          input
+        );
+
         alert("login success");
+        navigate(`/profile/${data.user.id}`);
       } catch (error) {
         alert(error.response.data.message);
+        navigate("");
       }
     }
   };

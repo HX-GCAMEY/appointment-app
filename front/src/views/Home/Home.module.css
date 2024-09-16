@@ -1,0 +1,10 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  background-color: #0f0f0f;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2em;
+  color: aliceblue;
+  padding: 2em;
+}
