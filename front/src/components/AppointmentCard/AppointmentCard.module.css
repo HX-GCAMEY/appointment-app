@@ -1,0 +1,39 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1em;
+  padding: 1em;
+  background-color: #5e2e2e;
+  border-radius: 10px;
+}
+
+.data {
+  display: flex;
+  justify-content: space-around;
+  margin: 5px;
+}
+
+.active {
+  color: chartreuse;
+}
+
+.text {
+  word-spacing: 3px;
+  line-height: 25px;
+  font-size: larger;
+}
+.canceled {
+  color: rgb(255, 25, 0);
+}
+
+.cancelButton {
+  background-color: #ff1919;
+  width: 60%;
+  align-self: center;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 0.5em;
+  cursor: pointer;
+}
