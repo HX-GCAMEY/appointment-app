@@ -1,17 +1,11 @@
-import Navbar from "../../components/Navbar";
 import Services from "../../components/Services";
-import Login from "../Login";
-import Profile from "../Profile";
-import Register from "../Register";
+import styles from "./Home.module.css";
 
 function Home() {
   return (
-    <div>
-      <Navbar />
+    <div className={styles.container}>
+      <h1>Please Login to check your Appointments</h1>
       <Services />
-      <Profile />
-      <Register />
-      <Login />
     </div>
   );
 }

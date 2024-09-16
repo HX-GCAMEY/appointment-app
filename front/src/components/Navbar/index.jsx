@@ -1,3 +1,4 @@
+import {Link} from "react-router-dom";
 import logo from "../../assets/barber-logo.png";
 import styles from "./Navbar.module.css";
 
@@ -7,12 +8,11 @@ function Navbar() {
       <div className={styles.logoSection}>
         <img src={logo} />
       </div>
-      <ul className={styles.linksSection}>
-        <li>HOME</li>
-        <li>PROFILE</li>
-
-        <li>LOGIN</li>
-      </ul>
+      <div className={styles.linksSection}>
+        <Link to="/">HOME</Link>
+        <Link to="/login">LOGIN</Link>
+        <Link to="/register">REGISTER</Link>
+      </div>
     </div>
   );
 }

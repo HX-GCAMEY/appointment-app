@@ -18,10 +18,14 @@
 
 .linksSection {
   display: flex;
-  list-style: none;
   flex-direction: row;
   gap: 2em;
   margin-right: 2em;
   font-size: 1.5em;
   text-shadow: 2px 2px 4px #ffffff;
+
+  a {
+    color: aliceblue;
+    text-decoration: none;
+  }
 }
