@@ -1,4 +1,4 @@
-import {Appoinment} from "./Appoinment";
+import {Appoinment} from "./Appointment";
 
 export interface User {
   id?: number;

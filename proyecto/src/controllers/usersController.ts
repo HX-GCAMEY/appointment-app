@@ -20,20 +20,23 @@ export const getUserById = async (req: Request, res: Response) => {
 
 export const register = async (req: Request, res: Response) => {
   const {name, email, password, address, phone, profile_pic} = req.body;
-  const credentials = {email, password};
+
   const newUser: User = await createUserService({
     name,
     email,
     address,
     phone,
     profile_pic,
-    credentials,
+    password,
   });
   res.status(200).json(newUser);
 };
 
 export const login = async (req: Request, res: Response) => {
   const {email, password} = req.body;
-  const credentials = await loginService({email, password});
-  res.status(200).json(credentials);
+  const user = await loginService({email, password});
+  res.status(200).json({
+    login: true,
+    user,
+  });
 };

@@ -1,5 +1,5 @@
-import {Appointment} from "../interfaces/Appoinment";
-import {Status} from "../interfaces/Appoinment";
+import {Appointment} from "../interfaces/Appointment";
+import {Status} from "../interfaces/Appointment";
 import {getUserByIdService} from "./usersService";
 
 export const appointments: Appointment[] = [

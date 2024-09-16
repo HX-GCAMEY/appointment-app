@@ -54,7 +54,7 @@ export const loginService = async (
     return undefined;
   }
 
-  const user = users.find((user) => user.credentials === validateCredentials);
+  const user = await getUserByIdService(validateCredentials);
 
   return await user;
 };
