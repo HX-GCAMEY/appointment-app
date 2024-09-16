@@ -1,58 +1,55 @@
-import {Appointment} from "../interfaces/Appointment";
-import {Status} from "../interfaces/Appointment";
+import {appointmentModel} from "../config/dataSource";
+import {CreateAppointmentDto} from "../dtos/CreateAppointmentDto";
+import Appointment from "../entities/Appointment";
+import User from "../entities/User";
 import {getUserByIdService} from "./usersService";
 
-export const appointments: Appointment[] = [
-  {
-    id: 1,
-    date: "2021-10-10",
-    time: "10:00",
-    status: Status.ACTIVE,
-    user: 1,
-  },
-];
-
 export const getAllAppointmentsService = async (): Promise<Appointment[]> => {
-  return await appointments;
+  return await appointmentModel.find();
 };
 
 export const getAppointmentByIdService = async (
   id: number
-): Promise<Appointment | undefined> => {
-  const appointment = appointments.find((appointment) => appointment.id === id);
+): Promise<Appointment | null> => {
+  const appointment = await appointmentModel.findOneBy({id});
 
-  return await appointment;
+  if (!appointment) {
+    throw new Error("Appointment not found");
+  }
+
+  return appointment;
 };
 
 export const createAppointmentService = async (
-  appointment: any
+  appointment: CreateAppointmentDto
 ): Promise<Appointment> => {
-  const {user} = appointment;
-  let newAppointment;
+  const newAppointment: Appointment = await appointmentModel.create(
+    appointment
+  );
+  await appointmentModel.save(newAppointment);
 
-  const userExist = await getUserByIdService(user);
-
-  if (userExist) {
-    newAppointment = {
-      id: appointments.length + 1,
-      status: Status.ACTIVE,
-      user: userExist.id,
-      ...appointment,
-    };
-    appointments.push(newAppointment);
+  const userFound: User | null = await getUserByIdService(appointment.userId);
+  if (!userFound) {
+    throw new Error("User not found");
   }
 
-  return await newAppointment;
+  newAppointment.user = userFound;
+  await appointmentModel.save(newAppointment);
+
+  return newAppointment;
 };
 
 export const cancelAppointmentService = async (
   appointmentId: number
-): Promise<Appointment | undefined> => {
-  const appointment = appointments.find(
-    (appointment) => appointment.id === appointmentId
-  );
-  if (appointment) {
-    appointment.status = Status.CANCELLED;
+): Promise<Appointment | null> => {
+  const appointment: Appointment | null = await appointmentModel.findOneBy({
+    id: appointmentId,
+  });
+
+  if (!appointment) {
+    throw new Error("Appointment not found");
   }
-  return await appointment;
+  appointment.status = "cancelled";
+  await appointmentModel.save(appointment);
+  return appointment;
 };
