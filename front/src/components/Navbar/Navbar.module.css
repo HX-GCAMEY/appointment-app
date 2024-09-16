@@ -1,0 +1,27 @@
+.navContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: rgb(0, 0, 0);
+  color: aliceblue;
+  padding-top: 1em;
+  padding-bottom: 1em;
+  align-items: center;
+}
+
+.logoSection {
+  margin-left: 2em;
+  img {
+    width: 8em;
+  }
+}
+
+.linksSection {
+  display: flex;
+  list-style: none;
+  flex-direction: row;
+  gap: 2em;
+  margin-right: 2em;
+  font-size: 1.5em;
+  text-shadow: 2px 2px 4px #ffffff;
+}

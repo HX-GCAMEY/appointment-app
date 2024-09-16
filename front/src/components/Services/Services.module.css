@@ -1,0 +1,20 @@
+.container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2em;
+  padding: 2em;
+  margin: 2em;
+  background-color: #0f0f0f;
+  color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  padding: 1em;
+  background-color: #5e2e2e;
+  border-radius: 10px;
+}
