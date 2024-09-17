@@ -28,8 +28,13 @@ export const getAppointmentById = async (req: Request, res: Response) => {
 };
 
 export const schedule = async (req: Request, res: Response) => {
-  const newAppointment = createAppointmentService(req.body);
-  res.status(200).json(newAppointment);
+  console.log(req.body);
+  try {
+    const newAppointment = createAppointmentService(req.body);
+    res.status(200).json(newAppointment);
+  } catch (error) {
+    res.status(400).json({error: error.message});
+  }
 };
 
 export const cancel = async (req: Request, res: Response) => {

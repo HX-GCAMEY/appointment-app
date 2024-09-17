@@ -8,6 +8,8 @@ export const UserContext = createContext({
   register: () => {},
   isLogged: false,
   getAppointments: () => {},
+  cancelAppointments: () => {},
+  createAppointment: () => {},
   appointments: [],
 });
 
@@ -52,6 +54,30 @@ export const UserProvider = ({children}) => {
     }
   };
 
+  const cancelAppointments = async (id) => {
+    try {
+      await axios.put(`http://localhost:3000/appointments/cancel/${id}`);
+      getAppointments(user.id);
+    } catch (error) {
+      alert(error.response.data.message);
+    }
+  };
+
+  const createAppointment = async (input) => {
+    console.log(input);
+    try {
+      const data = {
+        userId: user.id,
+        ...input,
+      };
+      await axios.post("http://localhost:3000/appointments/schedule", data);
+
+      getAppointments(user.id);
+    } catch (error) {
+      alert(error.response.data.message);
+    }
+  };
+
   return (
     <UserContext.Provider
       value={{
@@ -62,6 +88,8 @@ export const UserProvider = ({children}) => {
         isLogged,
         getAppointments,
         appointments,
+        createAppointment,
+        cancelAppointments,
       }}
     >
       {children}
