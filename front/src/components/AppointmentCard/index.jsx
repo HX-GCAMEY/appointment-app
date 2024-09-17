@@ -1,7 +1,15 @@
 import styles from "./AppointmentCard.module.css";
+import {UserContext} from "../../context/user";
+import {useContext} from "react";
 
 function AppointmentCard({appointment}) {
-  const {date, time, status} = appointment;
+  const {cancelAppointments} = useContext(UserContext);
+
+  const {id, date, time, status} = appointment;
+
+  const handleCancel = () => {
+    cancelAppointments(id);
+  };
 
   return (
     <div className={styles.container}>
@@ -15,7 +23,9 @@ function AppointmentCard({appointment}) {
         </span>
       </div>
       {status === "active" && (
-        <button className={styles.cancelButton}>Cancel</button>
+        <button onClick={handleCancel} className={styles.cancelButton}>
+          Cancel
+        </button>
       )}
     </div>
   );
