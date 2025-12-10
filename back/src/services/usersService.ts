@@ -49,7 +49,18 @@ export const loginService = async (
     throw new Error("Invalid credentials");
   }
 
-  const user = await getUserByIdService(validateCredentials.id);
+  const user = await userModel.findOne({
+    where: {
+      email: credentials.email,
+    },
+    relations: {
+      appointments: true,
+    },
+  });
+
+  if (!user) {
+    throw new Error("User not found");
+  }
 
   return user;
 };
